@@ -221,7 +221,7 @@ def main():
 
     filepaths = args
 
-    filepaths = [Path(fp) for fp in filepaths]
+    filepaths = [Path(fp).absolute() for fp in filepaths]
 
     compile_commands_filepath = filepaths.pop(0)
     similar_filepath = filepaths.pop(0)
@@ -236,7 +236,7 @@ def main():
         if fp.is_relative_to(base_path):
             return fp.relative_to(base_path)
         return fp
-    compile_commands = dict([(make_relative(Path(e['file'])), e['command']) for e in compile_commands])
+    compile_commands = dict([((Path(e['file']).absolute()), e['command']) for e in compile_commands])
 
     compile_commands = compile_commands[similar_filepath]
 
