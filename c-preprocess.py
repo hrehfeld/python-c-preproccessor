@@ -207,7 +207,6 @@ def main():
 
     while args:
         arg = args.pop(0)
-        print(repr(arg))
         for arg_str, arg_attr in options_params.items():
             if arg == arg_str:
                 setattr(options, arg_attr, True)
