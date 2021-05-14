@@ -67,7 +67,7 @@ def process_file(options, fp, includes, parent_defines, included_filepaths=None,
 
     res = []
     iline = 0
-    last_iline = 0
+    last_iline = -1
     def set_iline():
         nonlocal last_iline
         last_iline = iline
@@ -151,6 +151,7 @@ def process_file(options, fp, includes, parent_defines, included_filepaths=None,
                         # just don't emit empty files
                         log('sub_src', repr(sub_src[:10]), repr(sub_src.strip()[:10]))
                         if sub_src.strip():
+                            res.append(line_str(0, sub_fp))
                             res.append(sub_src)
                             res.append(line_str(iline, fp))
                             set_iline()
