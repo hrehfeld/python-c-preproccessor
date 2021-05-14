@@ -62,6 +62,9 @@ def process_file(options, fp, includes, parent_defines, included_filepaths=None,
         if options.verbose:
             print((indent + len(ifs)) * '  ', *args)
 
+    def line_str(iline, fp):
+        return f'//{fp}\n#line {iline}\n'
+
     res = []
     iline = 0
     last_iline = 0
@@ -70,7 +73,7 @@ def process_file(options, fp, includes, parent_defines, included_filepaths=None,
         last_iline = iline
     def emit(s):
         if iline != last_iline + 1:
-            res.append(f'#line {iline} {fp}\n')
+            res.append(line_str(iline, fp))
         res.append(s)
         set_iline()
     for iline, line in enumerate(src):
@@ -149,7 +152,7 @@ def process_file(options, fp, includes, parent_defines, included_filepaths=None,
                         log('sub_src', repr(sub_src[:10]), repr(sub_src.strip()[:10]))
                         if sub_src.strip():
                             res.append(sub_src)
-                            res.append(f'#line {iline} {fp}\n')
+                            res.append(line_str(iline, fp))
                             set_iline()
                         break
                 else:
