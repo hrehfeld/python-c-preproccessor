@@ -3,6 +3,8 @@ import sys
 from pathlib import Path
 from pprint import pprint
 import re
+import os
+
 
 identifier = r'\w+'
 value = r'\S+'
@@ -192,7 +194,6 @@ def main():
         if options.verbose:
             print(*args, **kwargs)
 
-    base_path = Path(sys.argv[0]).parent.absolute()
     args = list(sys.argv[1:])
 
     options_params = {
@@ -213,6 +214,8 @@ def main():
             args.insert(0, arg)
             break
 
+
+    base_path = Path(os.getcwd()).absolute()
 
     filepaths = args
 
