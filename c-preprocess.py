@@ -88,7 +88,7 @@ def process_file(options, fp, includes, parent_defines, included_filepaths=None,
 
         if cmd == 'endif':
             log(cmd, ifs)
-            assert ifs
+            assert ifs, ''.join([f'{i}	{line}' for i, line in enumerate(src)]) + f'\nERROR: {fp}:{iline}: '
             ifs.pop()
             allow_else.pop()
         elif cmd == 'else':
